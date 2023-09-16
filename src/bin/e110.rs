@@ -1,23 +1,16 @@
-// Idiom #111 Launch other program
-// From current process, run program x with command-line parameters "a", "b".
 
-use std::process::Command;
+// Idiom #110 Check if string is blank
+// Set the boolean blank to true if the string s is empty, or null, or contains only whitespace ; false otherwise.
 
 fn main() {
-    let status = Command::new("ls")
-        .args(&["/etc"])
-        .status()
-        .expect("failed to execute process");
+    let list = vec!["", " ", "  ", "\t", "\n", "a", " b "];
+    for s in list {
+        let blank = s.trim().is_empty();
 
-    // exit code is outputted after _ls_ runs
-    println!("{}", status);
-
-    let output = Command::new("ls")
-        .args(&["/etc"])
-        .output()
-        .expect("failed to execute process");
-
-    let output = String::from_utf8(output.stdout).unwrap();
-
-    println!("{}", output);
+        if blank {
+            println!("{:?}\tis blank", s)
+        } else {
+            println!("{:?}\tis not blank", s)
+        }
+    }
 }
